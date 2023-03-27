@@ -11,7 +11,7 @@ def split_string(large_string, name, group_name, output_folder, delimiter="--"):
             f.write(substring.strip())
 
 
-def handle_folder(folder, name, delimiter):
+def process_folder(folder, name, delimiter):
     large_txt_file = (folder.parent / "combined") / f"{folder.stem}.txt"
     if not large_txt_file.exists():
         print(f"Could not find {large_txt_file}")
@@ -23,7 +23,7 @@ def handle_folder(folder, name, delimiter):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--folder", "-f", type=str, default=".", help="Parent folder to process")
+    parser.add_argument("--folder", "-f", type=str, default="data", help="Parent folder to process")
     parser.add_argument("--name", "-n", type=str, default="Lesepur_Berchtesgaden_QR_Code", help="Name")
     parser.add_argument(
         "--delimiter",
@@ -45,7 +45,7 @@ def main():
     folders = [x for x in parent_folder.iterdir() if x.is_dir() and not "combined" in x.name]
 
     for folder in folders:
-        handle_folder(folder=folder, name=name, delimiter=delimiter)
+        process_folder(folder=folder, name=name, delimiter=delimiter)
 
 
 if __name__ == "__main__":
